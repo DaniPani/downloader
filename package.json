@@ -1,0 +1,21 @@
+{
+  "name": "downloader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "downloader": "downloader.js"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Daniel Panero aka $DaniPani$",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.0",
+    "cherio": "^1.0.0-rc.2",
+    "commander": "^2.15.0",
+    "puppeteer": "^1.2.0",
+    "request": "^2.85.0"
+  }
+}
