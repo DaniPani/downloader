@@ -1,5 +1,11 @@
 const puppeteer = require('puppeteer')
 
+/**
+ * Web Crawler for ilgeniodellostreaming
+ * @param  {string} url The url of the page
+ * @param  {number} times The number of episodes to download
+ */
+
 module.exports = async function (url, times) {
   let first = ''
   let info = url.replace(/http:\/\/ilgeniodellostreaming\.org\/episodi\//g, '').replace(/\//g, '').split(/-/g)

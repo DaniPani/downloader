@@ -2,7 +2,10 @@ const waterfall = require('async').waterfall
 
 const Downloader = require('./src/downloader')
 const Ilgeniodellostreaming = require('./src/ilgeniodellostreaming')
-
+/**
+ * @param  {string} url The url of the page
+ * @param  {number} times The number of episodes to download
+ */
 module.exports = async (url, times) => {
   if (/^(http:\/\/ilgeniodellostreaming.org)/.test(url)) {
     waterfall([
