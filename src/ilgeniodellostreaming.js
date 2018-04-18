@@ -13,8 +13,8 @@ module.exports = async function (url, times) {
   const escapeAntiBot = async () => {
     await browser.newPage().then(async page => {
       await page.goto('http://ilgeniodellostreaming.org')
-      console.log('Escaping CloudFlare Protection AntiBOT...')
       await page.waitFor('.hbox')
+      process.emit('downloader', {type: 0})
       await page.close()
     })
   }
@@ -23,6 +23,7 @@ module.exports = async function (url, times) {
 
   const search = async (ep) => {
     return browser.newPage().then(async page => {
+      process.emit('downloader', {type: 1, name: `${info.join(' ')}`, season, ep})
       await page.setRequestInterception(true)
       page.on('request', request => {
         if (['image', 'stylesheet', 'font', 'script'].indexOf(request.resourceType()) !== -1) {
@@ -32,7 +33,6 @@ module.exports = async function (url, times) {
         }
       })
       await page.goto(`http://ilgeniodellostreaming.org/episodi/${info.join('-')}-${season}x${ep}/`, {waitUntil: 'domcontentloaded'})
-      console.log(`Season: ${season} Episode: ${ep}`)
       await page.waitFor('.metaframe.rptss')
       const src = await page.$eval('.metaframe.rptss', el => el.src)
       await page.close()
@@ -45,7 +45,7 @@ module.exports = async function (url, times) {
   }
 
   return Promise.all(promises).then(result => {
-    console.log(result)
+    process.emit('downloader', {type: 2, result})
     browser.close()
     let name = info.join(' ')
     return {name, 'links': [first, ...result]}
