@@ -1,21 +1,18 @@
-const waterfall = require('async').waterfall
+const fetcher = require('./src/fetcher')
+const ilgeniodellostreaming = require('./src/ilgeniodellostreaming')
+const EventEmitter = require('events')
+const event = new EventEmitter()
 
-const Downloader = require('./src/downloader')
-const Ilgeniodellostreaming = require('./src/ilgeniodellostreaming')
-/**
- * @param  {string} url The url of the page
- * @param  {number} times The number of episodes to download
- */
-export default async (url, times) => {
-  if (/^(http:\/\/ilgeniodellostreaming.org)/.test(url)) {
-    waterfall([
-      Ilgeniodellostreaming.bind(null, url, times),
-      Downloader
-    ], (err, result) => {
-      if (err) {
-        throw new Error(err)
-      }
-      process.emit('downloader', {type: 6})
-    })
-  }
+module.exports = {
+  /**
+   * @param  {string} url The url of the page
+   * @param  {number} times The number of episodes to download
+   */
+  'download': async function (url, times) {
+    if (/^(htt(p|ps):\/\/ilgeniodellostreaming.org)/.test(url)) {
+      let result = await ilgeniodellostreaming(url, times, event)
+      return fetcher(result, event)
+    }
+  },
+  event
 }
