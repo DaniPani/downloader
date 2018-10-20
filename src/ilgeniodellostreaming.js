@@ -17,7 +17,7 @@ module.exports = async function (url, times, event) {
   const escapeAntiBot = async () => {
     event.emit('escapingAntiBot')
     let page = await browser.newPage()
-    await page.goto('http://ilgeniodellostreaming.org')
+    await page.goto('http://ilgeniodellostreaming.in')
     await page.waitFor('.hbox')
     await page.close()
   }
@@ -67,7 +67,7 @@ module.exports = async function (url, times, event) {
   event.emit('extractedAll')
 
   return {
-    'name': /(?:htt(p|ps):\/\/ilgeniodellostreaming\.org\/episodi\/)(.+[A-Z0-9](?=-\dx))/gi.exec(url)[2].replace(/-/g, ' '),
+    'name': /(?:htt(p|ps):\/\/ilgeniodellostreaming\.in\/episodi\/)(.+[A-Z0-9](?=-\dx))/gi.exec(url)[2].replace(/-/g, ' '),
     links
   }
 }

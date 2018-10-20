@@ -9,7 +9,7 @@ module.exports = {
    * @param  {number} times The number of episodes to download
    */
   'download': async function (url, times) {
-    if (/^(htt(p|ps):\/\/ilgeniodellostreaming.org)/.test(url)) {
+    if (/^(htt(p|ps):\/\/ilgeniodellostreaming)/.test(url)) {
       let result = await ilgeniodellostreaming(url, times, event)
       return fetcher(result, event)
     }
